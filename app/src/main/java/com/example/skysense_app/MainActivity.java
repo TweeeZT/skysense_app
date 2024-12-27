@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         // Ambil username dari SharedPreferences
         sharedPreferences = getSharedPreferences("SkySensePrefs", Context.MODE_PRIVATE);
@@ -39,20 +39,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Inisialisasi TextView untuk menampilkan data pengguna
-        tvWelcome = findViewById(R.id.tvWelcome);
-        btnLogout = findViewById(R.id.btnLogout);
-        viewProfileButton = findViewById(R.id.viewProfileButton);
-        viewGraphButton = findViewById(R.id.viewGraphButton);
+//        tvWelcome = findViewById(R.id.tvWelcome);
+        btnLogout = findViewById(R.id.idLogout);
+        viewProfileButton = findViewById(R.id.idEditProfile);
+        viewGraphButton = findViewById(R.id.idViewGraph);
 
         // Inisialisasi TextView untuk data cuaca
-        tvHumidityValue = findViewById(R.id.tvHumidityValue);
-        tvTemperatureValue = findViewById(R.id.tvTemperatureValue);
-        tvPressureValue = findViewById(R.id.tvPressureValue);
-        tvRainfallValue = findViewById(R.id.tvRainfallValue);
-        tvWindSpeedValue = findViewById(R.id.tvWindSpeedValue);
-        tvUVIndexValue = findViewById(R.id.tvUVIndexValue);
-        tvRainPredictionValue = findViewById(R.id.tvRainPredictionValue);
-        tvWeatherConditionValue = findViewById(R.id.tvWeatherConditionValue);
+        tvHumidityValue = findViewById(R.id.idKelembapan);
+        tvTemperatureValue = findViewById(R.id.idSuhu);
+        tvPressureValue = findViewById(R.id.idTekanan);
+        tvRainfallValue = findViewById(R.id.idHujan);
+        tvWindSpeedValue = findViewById(R.id.idAngin);
+        tvUVIndexValue = findViewById(R.id.idUV);
+        tvRainPredictionValue = findViewById(R.id.idPrediksi);
+        tvWeatherConditionValue = findViewById(R.id.idKondisiCuaca);
 
         // Referensi ke Firebase Realtime Database
         weatherReference = FirebaseDatabase.getInstance().getReference("uid=2/deviceid=2A/latest_reading");
