@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "2629833624",
+    "firebase_url": "https://projeksister-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "projeksister",
+    "storage_bucket": "projeksister.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2629833624:android:1be4913fb4193365cd91ed",
+        "android_client_info": {
+          "package_name": "com.example.skysense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzY8ScuGLDcYtA92YKKYsaXum5kvqtnJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2629833624-1p7cbp94alh3aoj79qh2h7anuggpt44t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.skysenseFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2629833624:android:a857d94ee199022acd91ed",
+        "android_client_info": {
+          "package_name": "com.example.skysense_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzY8ScuGLDcYtA92YKKYsaXum5kvqtnJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2629833624-1p7cbp94alh3aoj79qh2h7anuggpt44t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.skysenseFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2629833624:android:d899a805bde69479cd91ed",
+        "android_client_info": {
+          "package_name": "com.example.skysense_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzY8ScuGLDcYtA92YKKYsaXum5kvqtnJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2629833624-1p7cbp94alh3aoj79qh2h7anuggpt44t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.skysenseFlutter"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2629833624:android:9bbf93fb6384175ccd91ed",
+        "android_client_info": {
+          "package_name": "com.google.firebase.presents.skysense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzY8ScuGLDcYtA92YKKYsaXum5kvqtnJ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2629833624-7bmb915f18ipi7foetchk550ggcl05oq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "2629833624-1p7cbp94alh3aoj79qh2h7anuggpt44t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.skysenseFlutter"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
