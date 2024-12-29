@@ -18,8 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView tvHumidityValue, tvTemperatureValue, tvPressureValue, tvRainfallValue, tvWindSpeedValue, tvUVIndexValue, tvRainPredictionValue, tvWeatherConditionValue;
-    private TextView tvWelcome, tvEmail, tvUsername, btnLogout, viewProfileButton, viewGraphButton;
+    private TextView HumidityValue, TemperatureValue, PressureValue, RainfallValue, WindSpeedValue, UVIndexValue, RainPredictionValue, WeatherConditionValue;
+    private TextView btnLogout, viewProfileButton, viewGraphButton;
     private DatabaseReference weatherReference;
     private String currentUsername; // Username untuk identifikasi pengguna
     private SharedPreferences sharedPreferences;
@@ -45,14 +45,14 @@ public class MainActivity extends AppCompatActivity {
         viewGraphButton = findViewById(R.id.idViewGraph);
 
         // Inisialisasi TextView untuk data cuaca
-        tvHumidityValue = findViewById(R.id.idKelembapan);
-        tvTemperatureValue = findViewById(R.id.idSuhu);
-        tvPressureValue = findViewById(R.id.idTekanan);
-        tvRainfallValue = findViewById(R.id.idHujan);
-        tvWindSpeedValue = findViewById(R.id.idAngin);
-        tvUVIndexValue = findViewById(R.id.idUV);
-        tvRainPredictionValue = findViewById(R.id.idPrediksi);
-        tvWeatherConditionValue = findViewById(R.id.idKondisiCuaca);
+        HumidityValue = findViewById(R.id.idKelembapan);
+        TemperatureValue = findViewById(R.id.idSuhu);
+        PressureValue = findViewById(R.id.idTekanan);
+        RainfallValue = findViewById(R.id.idHujan);
+        WindSpeedValue = findViewById(R.id.idAngin);
+        UVIndexValue = findViewById(R.id.idUV);
+        RainPredictionValue = findViewById(R.id.idPrediksi);
+        WeatherConditionValue = findViewById(R.id.idKondisiCuaca);
 
         // Referensi ke Firebase Realtime Database
         weatherReference = FirebaseDatabase.getInstance().getReference("uid=2/deviceid=2A/latest_reading");
@@ -82,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void loadWeatherData() {
         weatherReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -101,14 +100,14 @@ public class MainActivity extends AppCompatActivity {
                     String formattedPressure = pressure != null ? String.valueOf(pressure).substring(0, 3) : "N/A";
 
                     // Tampilkan data di TextView
-                    tvHumidityValue.setText(humidity != null ? humidity + "%" : "N/A");
-                    tvTemperatureValue.setText(temperature != null ? temperature + "°C" : "N/A");
-                    tvPressureValue.setText(formattedPressure != null ? formattedPressure + " hPa" : "N/A");
-                    tvRainfallValue.setText(rainfall != null ? rainfall + " mm" : "N/A");
-                    tvWindSpeedValue.setText(windSpeed != null ? windSpeed + " km/h" : "N/A");
-                    tvUVIndexValue.setText(uvIndex != null ? String.valueOf(uvIndex) : "N/A");
-                    tvRainPredictionValue.setText(rainPrediction != null ? rainPrediction : "N/A");
-                    tvWeatherConditionValue.setText(weatherCondition != null ? weatherCondition : "N/A");
+                    HumidityValue.setText(humidity != null ? humidity + "%" : "N/A");
+                    TemperatureValue.setText(temperature != null ? temperature + "°C" : "N/A");
+                    PressureValue.setText(formattedPressure != null ? formattedPressure + " hPa" : "N/A");
+                    RainfallValue.setText(rainfall != null ? rainfall + " mm" : "N/A");
+                    WindSpeedValue.setText(windSpeed != null ? windSpeed + " km/h" : "N/A");
+                    UVIndexValue.setText(uvIndex != null ? String.valueOf(uvIndex) : "N/A");
+                    RainPredictionValue.setText(rainPrediction != null ? rainPrediction : "N/A");
+                    WeatherConditionValue.setText(weatherCondition != null ? weatherCondition : "N/A");
                 }
             }
 

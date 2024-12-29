@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static final String API_URL = "http://10.0.2.2/skysense/login.php"; // Ganti dengan URL API Anda
+    private static final String API_URL = "http://10.0.2.2/skysense/login.php";
 
     private EditText loginUsername, loginPassword;
     private Button loginButton;
