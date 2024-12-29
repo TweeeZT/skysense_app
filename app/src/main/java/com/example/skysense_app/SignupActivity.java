@@ -40,7 +40,7 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private void handleSignup() {
+    private void handleSignup() { //validasi input
         String name = signupName.getText().toString().trim();
         String email = signupEmail.getText().toString().trim();
         String username = signupUsername.getText().toString().trim();
@@ -51,7 +51,7 @@ public class SignupActivity extends AppCompatActivity {
             return;
         }
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient client = new OkHttpClient(); //http request
 
         RequestBody formBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
@@ -61,7 +61,7 @@ public class SignupActivity extends AppCompatActivity {
                 .addFormDataPart("password", password)
                 .build();
 
-        Request request = new Request.Builder()
+        Request request = new Request.Builder() //send request
                 .url(API_URL)
                 .post(formBody)
                 .build();
@@ -78,7 +78,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseData = response.body().string();
                 runOnUiThread(() -> {
-                    try {
+                    try { //proses response
                         JSONObject jsonResponse = new JSONObject(responseData);
                         boolean success = jsonResponse.getBoolean("success");
                         String message = jsonResponse.getString("message");
