@@ -40,7 +40,19 @@ public class EditProfileActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.saveButton);
         deleteButton = findViewById(R.id.deleteButton);
 
-        // Redirect jika username tidak ditemukan
+        // Redirect jika username tidak ditemukan    private String getRainfallCategory(double rainfall) {
+        //        if (rainfall <= 0) {
+        //            return "Tidak Hujan";
+        //        } else if (rainfall <= 5) {
+        //            return "Hujan Ringan";
+        //        } else if (rainfall <= 10) {
+        //            return "Hujan Sedang";
+        //        } else if (rainfall <= 20) {
+        //            return "Hujan Lebat";
+        //        } else {
+        //            return "Hujan Sangat Lebat";
+        //        }
+        //    }
         if (currentUsername == null) {
             Toast.makeText(this, "Invalid session. Please log in again.", Toast.LENGTH_SHORT).show();
             finish();
