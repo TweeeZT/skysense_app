@@ -20,12 +20,15 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView HumidityValue, TemperatureValue, PressureValue, RainfallValue, WindSpeedValue, UVIndexValue, RainPredictionValue, WeatherConditionValue;
+
+    private TextView HumidityValue, TemperatureValue, PressureValue, RainfallValue,
+            WindSpeedValue, UVIndexValue, RainPredictionValue, WeatherConditionValue;
     private TextView btnLogout, viewProfileButton, viewGraphButton;
     private DatabaseReference weatherReference;
-    private String currentUsername; // Username untuk identifikasi pengguna
+    private String currentUsername;
     private SharedPreferences sharedPreferences;
     private RainfallNotificationHelper notificationHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         // Ambil username dari SharedPreferences
         sharedPreferences = getSharedPreferences("SkySensePrefs", Context.MODE_PRIVATE);
         currentUsername = sharedPreferences.getString("username", null);
+        String selectedDevice = sharedPreferences.getString("selected_device", "uid=2/deviceid=2A");
 
         if (currentUsername == null) {
             redirectToLogin();
@@ -64,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        // Referensi ke Firebase Realtime Database
-        weatherReference = FirebaseDatabase.getInstance().getReference("uid=2/deviceid=2A/latest_reading");
+        // Inisialisasi Firebase reference dengan device yang dipilih
+        weatherReference = FirebaseDatabase.getInstance()
+                .getReference(selectedDevice + "/latest_reading");
 
         // Listener untuk data cuaca
         loadWeatherData();
@@ -77,9 +82,6 @@ public class MainActivity extends AppCompatActivity {
         viewProfileButton.setOnClickListener(v -> viewProfile());
 
         // Tombol Lihat Grafik Cuaca
-        viewGraphButton.setOnClickListener(v -> viewGraph());
-
-        // Tombol Navigasi ke GraphWeatherActivity
         viewGraphButton.setOnClickListener(v -> {
             try {
                 Intent graphIntent = new Intent(MainActivity.this, GraphWeatherActivity.class);
@@ -88,8 +90,18 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error: Unable to open Graph Activity", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Update reference when returning to activity in case device selection changed
+        String selectedDevice = sharedPreferences.getString("selected_device", "uid=2/deviceid=2A");
+        weatherReference = FirebaseDatabase.getInstance()
+                .getReference(selectedDevice + "/latest_reading");
+        loadWeatherData();
+    }
+
 
     private void loadWeatherData() {
         weatherReference.addValueEventListener(new ValueEventListener() {

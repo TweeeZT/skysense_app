@@ -6,22 +6,34 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.Request;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import org.json.JSONObject;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class EditProfileActivity extends AppCompatActivity {
 
     private EditText editName, editEmail, editUsername, editPassword;
     private Button saveButton, deleteButton;
+    private Spinner deviceSpinner;
     private String currentUsername;
     private SharedPreferences sharedPreferences;
-    private static final String BASE_URL = "http://10.0.2.2/skysense/"; // Ganti dengan domain Anda
+    private static final String BASE_URL = "http://10.0.2.2/skysense/";
+    private ArrayList<String> deviceList;
+    private ArrayAdapter<String> deviceAdapter; // Ganti dengan domain Anda
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +51,14 @@ public class EditProfileActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.editPassword);
         saveButton = findViewById(R.id.saveButton);
         deleteButton = findViewById(R.id.deleteButton);
+        deviceSpinner = findViewById(R.id.deviceSpinner);
 
-        // Redirect jika username tidak ditemukan    private String getRainfallCategory(double rainfall) {
-        //        if (rainfall <= 0) {
-        //            return "Tidak Hujan";
-        //        } else if (rainfall <= 5) {
-        //            return "Hujan Ringan";
-        //        } else if (rainfall <= 10) {
-        //            return "Hujan Sedang";
-        //        } else if (rainfall <= 20) {
-        //            return "Hujan Lebat";
-        //        } else {
-        //            return "Hujan Sangat Lebat";
-        //        }
-        //    }
+        deviceList = new ArrayList<>();
+        deviceAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, deviceList);
+        deviceSpinner.setAdapter(deviceAdapter);
+
+
+        // Redirect jika username tidak ditemukan
         if (currentUsername == null) {
             Toast.makeText(this, "Invalid session. Please log in again.", Toast.LENGTH_SHORT).show();
             finish();
@@ -61,11 +67,68 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Load user data
         loadUserData();
+        loadDeviceList();
 
         deleteButton.setOnClickListener(view -> deleteAccount());
 
         // Tombol simpan perubahan
         saveButton.setOnClickListener(view -> saveChanges());
+
+        String currentDevice = sharedPreferences.getString("selected_device", "uid=2/deviceid=2A");
+        deviceSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(android.widget.AdapterView<?> parent, android.view.View view, int position, long id) {
+                String selectedDevice = deviceList.get(position);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("selected_device", selectedDevice);
+                editor.apply();
+            }
+
+            @Override
+            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void loadDeviceList() {
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                deviceList.clear();
+                String currentDevice = sharedPreferences.getString("selected_device", "uid=2/deviceid=2A");
+                int selectedIndex = 0;
+                int currentIndex = 0;
+
+                for (DataSnapshot uidSnapshot : dataSnapshot.getChildren()) {
+                    String uid = uidSnapshot.getKey();
+                    if (uid != null) {
+                        for (DataSnapshot deviceSnapshot : uidSnapshot.getChildren()) {
+                            String deviceId = deviceSnapshot.getKey();
+                            if (deviceId != null) {
+                                String devicePath = uid + "/" + deviceId;
+                                deviceList.add(devicePath);
+
+                                if (devicePath.equals(currentDevice)) {
+                                    selectedIndex = currentIndex;
+                                }
+                                currentIndex++;
+                            }
+                        }
+                    }
+                }
+
+                deviceAdapter.notifyDataSetChanged();
+                deviceSpinner.setSelection(selectedIndex);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(EditProfileActivity.this,
+                        "Failed to load devices: " + databaseError.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void loadUserData() {

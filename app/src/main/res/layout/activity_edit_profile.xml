@@ -84,6 +84,12 @@
                 android:drawablePadding="8dp"
                 android:textColor="@color/black"/>
 
+            <Spinner
+                android:id="@+id/deviceSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp" />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
