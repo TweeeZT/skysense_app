@@ -2,6 +2,8 @@ package com.example.skysense_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,11 +25,13 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference weatherReference;
     private String currentUsername; // Username untuk identifikasi pengguna
     private SharedPreferences sharedPreferences;
-
+    private RainfallNotificationHelper notificationHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
+
+        notificationHelper = new RainfallNotificationHelper(this);
 
         // Ambil username dari SharedPreferences
         sharedPreferences = getSharedPreferences("SkySensePrefs", Context.MODE_PRIVATE);
@@ -39,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Inisialisasi TextView untuk menampilkan data pengguna
-//        tvWelcome = findViewById(R.id.tvWelcome);
         btnLogout = findViewById(R.id.idLogout);
         viewProfileButton = findViewById(R.id.idEditProfile);
         viewGraphButton = findViewById(R.id.idViewGraph);
@@ -53,6 +56,13 @@ public class MainActivity extends AppCompatActivity {
         UVIndexValue = findViewById(R.id.idUV);
         RainPredictionValue = findViewById(R.id.idPrediksi);
         WeatherConditionValue = findViewById(R.id.idKondisiCuaca);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+            }
+        }
 
         // Referensi ke Firebase Realtime Database
         weatherReference = FirebaseDatabase.getInstance().getReference("uid=2/deviceid=2A/latest_reading");
@@ -78,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Error: Unable to open Graph Activity", Toast.LENGTH_SHORT).show();
             }
         });
-
 
     }
 
@@ -108,6 +117,10 @@ public class MainActivity extends AppCompatActivity {
                     UVIndexValue.setText(uvIndex != null ? String.valueOf(uvIndex) : "N/A");
                     RainPredictionValue.setText(rainPrediction != null ? rainPrediction : "N/A");
                     WeatherConditionValue.setText(weatherCondition != null ? weatherCondition : "N/A");
+
+                    if (rainfall != null) {
+                        notificationHelper.checkRainfallAndNotify(rainfall);
+                    }
                 }
             }
 
